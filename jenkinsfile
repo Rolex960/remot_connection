@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Check out the repository code
-                git branch: 'master', url: 'https://github.com/Rolex960/remot_connection.git'
+                git branch: 'main', url: 'https://github.com/Rolex960/remot_connection.git'
             }
         }
         
