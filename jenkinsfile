@@ -4,33 +4,34 @@ remote.host = '13.233.236.85'
 remote.allowAnyHosts = true
 
 pipeline {
-  agent any
-  environment {
-    ROOT_CRED = credentials('root')  // Ensures credentials are stored securely in Jenkins
-  }
+    agent any
+    environment {
+        ROOT_CRED = credentials('root')  // Ensures credentials are stored securely in Jenkins
+    }
   
-  stages {
-    stage('Checkout') {
-      steps {
-        // Check out the repository code
-        git branch: 'master', url: 'https://github.com/Rolex960/remot_connection.git'
-      }
-    }
-    
-    stage('Copy Artifact') {
-      steps {
-        script {
-          // Assign credentials to remote connection
-          remote.user = ROOT_CRED_USR
-          remote.password = ROOT_CRED_PSW
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the repository code
+                git branch: 'master', url: 'https://github.com/Rolex960/remot_connection.git'
+            }
         }
+        
+        stage('Copy Artifact') {
+            steps {
+                script {
+                    // Assign credentials to remote connection
+                    remote.user = ROOT_CRED.username
+                    remote.password = ROOT_CRED.password
+                }
 
-        // Use sshCommand plugin to execute the scp command to transfer files
-        sshCommand remote: remote, command: 'scp /home/ubuntu/remote/index.html ubuntu@43.205.116.16:/home/ubuntu/Task'
-      }
+                // Use sshCommand plugin to execute the scp command to transfer files
+                sshCommand remote: remote, command: 'scp -o StrictHostKeyChecking=no /home/ubuntu/remote/index.html ubuntu@43.205.116.16:/home/ubuntu/Task'
+            }
+        }
     }
-  }
 }
+
 
  //       stage('copy artifact') {
         //    steps {
