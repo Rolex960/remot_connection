@@ -1,0 +1,10 @@
+def remote=[:]
+remote.name = 'root'
+remote.host = '52.66.195.125'
+remote.allowAnyhosts = true
+pipeline{
+  agent any
+      environment{
+          root_cred=credentials('root')
+      }   
+}
