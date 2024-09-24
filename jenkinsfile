@@ -5,6 +5,17 @@ remote.allowAnyhosts = true
 pipeline{
   agent any
       environment{
-          root_cred=credentials('root')
-      }   
+          ROOT_CRED=credentials('root')
+      }  
+    stages{
+        stage('copy artifact') {
+            steps {
+                script{
+                      remote.user=ROOT_CRED_USR
+                      remote.password=ROOT_CRED_psw
+                }
+                    sshcommand(remote: remote, command 'scp /home/ubuntu/remote/index.html ubuntu@43.205.116.16:/home/ubuntu/Task')
+            }
+        }
+    }
 }
