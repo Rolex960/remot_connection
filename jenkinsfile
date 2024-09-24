@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('checkout') {
             steps{
-              git branch url:'https://github.com/Rolex960/remot_connection.git'
+              git branch: 'master',  url:'https://github.com/Rolex960/remot_connection.git'
             }
         }
         stage('copy artifact') {
