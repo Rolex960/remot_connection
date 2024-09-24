@@ -1,6 +1,6 @@
 def remote=[:]
 remote.name = 'root'
-remote.host = '52.66.195.125'
+remote.host = '13.233.236.85'
 remote.allowAnyhosts = true
 pipeline{
   agent any
@@ -8,6 +8,11 @@ pipeline{
           ROOT_CRED=credentials('root')
       }  
     stages{
+        stage('checkout') {
+            steps{
+              git branch url:'https://github.com/Rolex960/remot_connection.git'
+            }
+        }
         stage('copy artifact') {
             steps {
                 script{
